@@ -9,17 +9,15 @@ public class Exercise1_runCommand {
 
         String so = System.getProperty("os.name").toLowerCase();
 
-        String comandoUsuario = "dir";
-
         try {
             ProcessBuilder pb = new ProcessBuilder();
 
             // En Windows necesitamos cmd.exe /C para ejecutar comandos del shell
             // En Linux/Mac el comando se puede ejecutar directamente
             if (so.contains("windows")) {
-                pb.command("cmd.exe", "/C", comandoUsuario);
+                pb.command("cmd.exe", "/C", "dir");
             } else {
-                pb.command("bash", "-c", comandoUsuario);
+                pb.command("bash", "-c", "ls -la");
             }
 
             Process proceso = pb.start();
