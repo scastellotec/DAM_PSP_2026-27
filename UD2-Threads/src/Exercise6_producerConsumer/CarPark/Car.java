@@ -12,19 +12,16 @@ public class Car implements Runnable {
 
     @Override
     public void run() {
-        // Car attemps to park
-        carPark.park();
-        System.out.println(name + " is parked");
 
-        // Wait some time
         try {
-            Thread.sleep(3000);
+            // Car attemps to park
+            carPark.park(name);
+            // wait some time parked
+            Thread.sleep(5000);
+            // leave the parking
+            carPark.leave(name);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        // Car leves
-        carPark.leave();
-        System.out.println(name + " left the parking");
     }
 }

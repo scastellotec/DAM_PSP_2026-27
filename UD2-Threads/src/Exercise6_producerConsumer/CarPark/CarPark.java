@@ -8,20 +8,30 @@ public class CarPark {
         this.numerSpacesAvailable = numerSpacesAvailable;
     }
 
-    public void park(){
-        // Comprobar si hay hueco para que un coche aparque
-            // si no hay hueco wait()
+    public synchronized void park(int name) throws InterruptedException {
+        // Check if there is space available
+        while(numerSpacesAvailable <= 0){
+            // there is no space available the car must wait
+            System.out.println(name + " is waiting");
+            wait();
+        }
 
-        // Reduce by 1 the number of available spaces
+        // If there is place to park
+        numerSpacesAvailable--;
+        System.out.println(name + " is parked");
+
     }
 
-    public void leave(){
+    public synchronized void leave(int name){
 
         // The car leaves
+        System.out.println(name + " left the parking");
 
         // Increment the spaces available
+        numerSpacesAvailable++;
 
-        // despertar a hilos dormidos que no han podido aparcar y estan en wait()
-        // se despierta con notify
+        // Wakeup waiting threads
+        notifyAll();
+
     }
 }
